@@ -1,4 +1,8 @@
-### Personal Hyprland Configurations
+# Personal Hyprlan Configuration
+This is a personal repository for my configuraiton file as a backup in case my computer breaks
+
+## Features
+### Basic Hyprland Panel
 <img width="1601" height="901" alt="image" src="https://github.com/user-attachments/assets/405ef706-0eec-46a0-b37f-22358786519f" />
 
 ### Randomized Digital Clock Prompt
