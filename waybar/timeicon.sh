@@ -81,5 +81,7 @@ else
     greeting="Good evening"
 fi
 
+ CURRENT_DATE=$(date +'%A, %B %d, %Y')
+
 # Final output for the standard greeting
-echo "{\"text\": \"$greeting, $username ₍^. .^₎⟆. It's $time_format\"}"
+echo "{\"text\": \"$greeting, $username ₍^. .^₎⟆. It's $time_format\", \"tooltip\": \"$CURRENT_DATE\"}"

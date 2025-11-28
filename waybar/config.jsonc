@@ -9,6 +9,7 @@
     "margin": 10,
     "modules-left": [
         "hyprland/workspaces",
+        "mpris"
     ],
     "modules-center": [
         "custom/timeicon"
@@ -17,6 +18,7 @@
         // "mpd",
         // "idle_inhibitor",
         "pulseaudio",
+        "pulseaudio#microphone",
         // "network",
         // "power-profiles-daemon",
         "cpu",
@@ -58,6 +60,17 @@
             "unlocked": ""
         }
     },
+"hyprland/workspaces": {
+    "format": "{name}{icon}",
+    "format-icons": {
+        "active": " : active",
+        "default": ""
+    },
+    "tooltip": true, 
+    // Try using {title} for each window instead of the general {windows} list
+    "format-tooltip": "{id}: {title}" 
+},
+
     "sway/mode": {
         "format": "<span style=\"italic\">{}</span>"
     },
@@ -94,7 +107,21 @@
         "tooltip-format": "MPD (connected)",
         "tooltip-format-disconnected": "MPD (disconnected)"
     },
-    "idle_inhibitor": {
+    "mpris": {
+        "format": "{player_icon} Now Playing: {title}",
+        "format-paused": "{player_icon} ⏸ {dynamic}",
+        "player-icons": {
+            "spotify": "", // Spotify Icon (requires a Nerd Font like FiraCode Nerd Font)
+            "default": "🎶"
+    },
+        "max-length": 50,
+        "interval": 1,
+        "tooltip": true,
+        "on-click": "playerctl play-pause",
+        "on-scroll-up": "playerctl next",
+        "on-scroll-down": "playerctl previous"
+    },
+        "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
             "activated": "",
@@ -114,14 +141,15 @@
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "format-alt": "{:%Y-%m-%d}"
     },
-    "custom/timeicon": {
-        "exec": "~/.config/waybar/timeicon.sh",
-        "format": "{}",
-        "return-type": "json",
-        "interval": 30, // Update the time every 30 seconds
-        // Optional: Keep the tooltip format from your original clock setup
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
-    },
+"custom/timeicon": {
+    "exec": "~/.config/waybar/timeicon.sh",
+    "format": "{}",
+    "return-type": "json",
+    "interval": 30,
+    "tooltip": true, // We add this back for stability, even if you don't use it for hover.
+    "on-click": "notify-send -t 3000 'Current Date' \"$(date +'%A, %B %d, %Y')\""
+    // NO COMMA HERE if this is the last entry in the block!
+},
     "cpu": {
         "format": "{usage}% ",
         "tooltip": false
@@ -182,11 +210,10 @@
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
-        "format": "{volume}% {icon} {format_source}",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " {format_source}",
-        "format-source": "{volume}% ",
+        "format": "{volume}% {icon}",
+        "format-bluetooth": "{volume}% {icon}",
+        "format-bluetooth-muted": " {icon}",
+        "format-muted": "Muted {icon} ",
         "format-source-muted": "",
         "format-icons": {
             "headphone": "",
@@ -197,7 +224,16 @@
             "car": "",
             "default": ["", "", ""]
         },
-        "on-click": "pavucontrol"
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+    },
+    "pulseaudio#microphone": {
+        "format": "{format_source}",
+        "format-source": "{volume}%  ",
+        "format-source-muted": "Muted ",
+        "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
+        "on-scroll-up": "pactl set-source-volume @DEFAULT_SOURCE@ +5%",
+        "on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -5%",
+        "scroll-step": 5
     },
     "custom/media": {
         "format": "{icon} {text}",
