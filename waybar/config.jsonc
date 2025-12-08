@@ -108,8 +108,8 @@
         "tooltip-format-disconnected": "MPD (disconnected)"
     },
     "mpris": {
-        "format": "{player_icon} Now Playing: {title}",
-        "format-paused": "{player_icon} ⏸ {dynamic}",
+        "format": "{player_icon} Now Playing: {title} by {artist}",
+        "format-paused": "{player_icon} Paused: {title} by {artist}",
         "player-icons": {
             "spotify": "", // Spotify Icon (requires a Nerd Font like FiraCode Nerd Font)
             "default": "🎶"
@@ -126,7 +126,8 @@
         "format-icons": {
             "activated": "",
             "deactivated": ""
-        }
+        },
+        "margin": 10
     },
     "tray": {
         // "icon-size": 21,
