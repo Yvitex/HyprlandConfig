@@ -2,6 +2,8 @@
 
 A personal Hyprland dotfiles repository — backed up here in case my computer explodes.
 
+Current theme: **Maid's Devotion** — a dark rose and gold aesthetic.
+
 ---
 
 ## Screenshots
@@ -29,6 +31,7 @@ A personal Hyprland dotfiles repository — backed up here in case my computer e
 | File Manager | [Nautilus](https://apps.gnome.org/Nautilus/) |
 | App Launcher | [Rofi](https://github.com/davatorium/rofi) |
 | Status Bar | [Waybar](https://github.com/Alexays/Waybar) |
+| Sidebar Shell | [Quickshell](https://quickshell.outfoxxed.me/) |
 | Wallpaper | [Hyprpaper](https://github.com/hyprwm/hyprpaper) |
 | Notifications | [Dunst](https://dunst-project.org/) |
 | Screenshots | [Hyprshot](https://github.com/micha-sky/hyprshot) |
@@ -45,7 +48,7 @@ Install these before applying the config:
 
 ```bash
 # Arch Linux / yay
-yay -S hyprland hyprpaper waybar dunst kitty nautilus rofi \
+yay -S hyprland hyprpaper waybar dunst kitty nautilus rofi quickshell \
         hyprshot playerctl brightnessctl pipewire wireplumber \
         departure-mono-nerd
 ```
@@ -60,13 +63,41 @@ yay -S hyprland hyprpaper waybar dunst kitty nautilus rofi \
 │   ├── hyprland.conf       # Main Hyprland configuration
 │   └── hyprpaper.conf      # Wallpaper configuration
 ├── waybar/
-│   ├── config.jsonc        # Waybar module layout
-│   ├── style.css           # Waybar styling
+│   ├── config.jsonc        # Main bar module layout
+│   ├── style.css           # Main bar styling
+│   ├── sidebar.jsonc       # Sidebar bar module layout
+│   ├── sidebar.css         # Sidebar bar styling
 │   ├── launch.sh           # Waybar restart script
-│   └── timeicon.sh         # Custom clock widget script
+│   ├── timeicon.sh         # Custom clock widget script
+│   └── maid_quote.sh       # Rotating maid servant quotes
+├── quickshell/
+│   ├── shell.qml           # Shell root — toggle tab + sidebar loader
+│   └── Sidebar.qml         # Sidebar panel (calendar, media, quotes)
+├── kitty/
+│   └── kitty.conf          # Terminal with Maid's Devotion color scheme
+├── dunst/
+│   └── dunstrc             # Notification styling
+├── rofi/
+│   └── config.rasi         # App launcher styling
 └── wallpaper/
     └── wallhaven-o5w1gl.png
 ```
+
+---
+
+## Theme: Maid's Devotion
+
+### Color Palette
+
+| Name | Hex | Role |
+|---|---|---|
+| Uniform Black | `#0D0B0F` | Background |
+| Rose Ribbon | `#C8638A` | Primary accent |
+| Gold Trim | `#D4AF37` | Elite accent |
+| Deep Plum | `#2A1E2E` | Inactive borders |
+| Silk White | `#F0E8F0` | Foreground text |
+
+This palette is applied consistently across Hyprland borders, Waybar, Kitty, Dunst, and Quickshell.
 
 ---
 
@@ -88,25 +119,26 @@ Auto-detected monitor at 1600×900 resolution, scale 1.
 | Inner gaps | 5px |
 | Outer gaps | 20px |
 | Border size | 2px |
-| Active border | White → Green gradient (45°) |
-| Inactive border | `#6B8BCF` (blue) |
-| Corner rounding | 10px |
-| Window shadow | Enabled (range 15) |
-| Background blur | Enabled (size 3, 1 pass) |
+| Active border | Rose → Gold gradient (`#C8638A` → `#D4AF37`, 45°) |
+| Inactive border | Deep Plum (`#2A1E2E`) |
+| Corner rounding | 14px |
+| Window shadow | Enabled |
+| Background blur | Enabled |
 | Transparency | Fully opaque (active & inactive) |
 
 ### Animations
 
-Uses custom bezier curves for smooth transitions:
+Uses "silk" bezier curves for smooth, fluid transitions:
 
 | Curve | Description |
 |---|---|
-| `easeOutQuint` | Snappy deceleration for windows and borders |
-| `easeInOutCubic` | Smooth in-and-out |
-| `almostLinear` | Near-linear for fades and workspace transitions |
-| `quick` | Fast snap for fade and zoom |
+| `silk` | Smooth deceleration — global default |
+| `silkIn` | Ease-in for entering elements |
+| `silkOut` | Ease-out for exiting elements |
+| `bounce` | Overshoot spring for windows opening |
+| `quick` | Fast snap |
 
-Windows pop in at 87% scale (`popin 87%`) on open and close.
+Windows pop in at 80% scale (`popin 80%`) with a bounce on open; silkOut on close.
 
 ### Input
 
@@ -197,11 +229,11 @@ Windows pop in at 87% scale (`popin 87%`) on open and close.
 ### Layout
 
 ```
-[ Workspaces | MPRIS ]     [ Clock Widget ]     [ Vol | Mic | CPU | RAM | Temp ]
+[ Workspaces | MPRIS ]     [ Clock Widget | Maid Quote ]     [ Vol | Mic | CPU | RAM | Temp ]
 ```
 
 - **Left**: Hyprland workspace buttons + media player (MPRIS)
-- **Center**: Custom time/greeting widget
+- **Center**: Custom time/greeting widget + rotating maid quote
 - **Right**: Speaker volume, microphone, CPU usage, RAM usage, CPU temperature
 
 ### Custom Clock Widget (`timeicon.sh`)
@@ -217,13 +249,60 @@ The center clock widget has a **30% chance** of displaying a random funny messag
 
 Clicking the widget sends a desktop notification showing the full current date.
 
+### Maid Quote Widget (`maid_quote.sh`)
+
+Displays a randomly selected servant phrase from a pool of 21 quotes (e.g. *"Your humble servant stands ready."*, *"Leave the rest to me, Master."*). A different quote is shown on each Waybar refresh.
+
 ### Styling
 
 - **Font**: DepartureMono Nerd Font, 13px
 - **Background**: Transparent (`rgba(0,0,0,0)`)
-- **Modules**: Semi-transparent black background (`rgba(0,0,0,0.7)`) with white `1px` border and `8px` rounded corners
-- **Active workspace**: White background, black text
-- **Workspace hover**: Red highlight
+- **Modules**: Semi-transparent dark background with rose border and rounded corners
+- **Active workspace**: Rose (`#C8638A`) background
+- **Workspace hover**: Gold (`#D4AF37`) highlight
+
+---
+
+## Quickshell Sidebar
+
+A collapsible right-edge sidebar built with Quickshell (QML).
+
+### Toggle Tab
+
+A small rose-colored pill (`#C8638A`) sits on the right screen edge at all times. It gently pulses when the sidebar is closed. Click it to open or close the sidebar.
+
+### Sidebar Panels
+
+| Panel | Description |
+|---|---|
+| **Calendar** | Full monthly calendar with prev/next navigation; today highlighted in gold |
+| **Media Player** | MPRIS album art, track title, artist, play/pause and skip controls |
+| **Maid Quote** | A randomly selected devotion quote, refreshed on open |
+
+---
+
+## Kitty Terminal
+
+The terminal uses a full "Maid's Devotion" color scheme:
+
+- **Background**: `#0D0B0F` at 88% opacity
+- **Cursor**: Rose (`#C8638A`) with dark text
+- **Selection**: Rose highlight
+- **URL underline**: Gold (`#D4AF37`)
+- **Active tab**: Rose background
+- **Active border**: Rose; bell border Gold
+
+---
+
+## Dunst Notifications
+
+Notifications are themed to match:
+
+- **Font**: DepartureMono Nerd Font 11
+- **Background**: `#0D0B0F`
+- **Low urgency frame**: Deep Plum (`#2A1E2E`)
+- **Normal urgency frame**: Rose (`#C8638A`)
+- **Critical urgency frame**: Gold (`#D4AF37`)
 
 ---
 
@@ -251,4 +330,5 @@ The following are launched automatically on Hyprland start:
 |---|---|
 | `hyprpaper` | Wallpaper daemon |
 | `~/.config/waybar/launch.sh` | Status bar |
+| `quickshell` | Sidebar shell |
 | `dunst` | Notification daemon |
