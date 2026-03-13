@@ -1,0 +1,80 @@
+// ══════════════════════════════════════════════════════════════════
+//  ✦ WAYBAR — Right Side Panel  "Maid's Devotion" Theme ✦
+//  Your devoted attendant, always watching over you.
+// ══════════════════════════════════════════════════════════════════
+{
+    "position": "right",
+    "layer": "top",
+    "width": 200,
+    "spacing": 4,
+    "margin-top": 52,
+    "margin-right": 8,
+    "margin-bottom": 8,
+
+    "modules-left": [
+        "custom/maid_header",
+        "clock"
+    ],
+    "modules-center": [
+        "cpu",
+        "memory",
+        "temperature",
+        "pulseaudio",
+        "network"
+    ],
+    "modules-right": [
+        "custom/maid_quote"
+    ],
+
+    "custom/maid_header": {
+        "format": "✦ At Your Service ✦",
+        "tooltip": false
+    },
+
+    "clock": {
+        "format": " {:%H:%M}",
+        "format-alt": " {:%a, %b %d}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "on-click-right": "notify-send -t 4000 '✦ Calendar' \"$(cal)\""
+    },
+
+    "cpu": {
+        "format": "  CPU  {usage}%",
+        "tooltip": true,
+        "interval": 2
+    },
+
+    "memory": {
+        "format": "  RAM  {}%",
+        "interval": 5
+    },
+
+    "temperature": {
+        "critical-threshold": 80,
+        "format": "  TEMP  {temperatureC}°",
+        "format-critical": "  HOT!  {temperatureC}°",
+        "interval": 5
+    },
+
+    "pulseaudio": {
+        "format": "  VOL  {volume}%",
+        "format-muted": "󰸈  VOL  Muted",
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +2%",
+        "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -2%"
+    },
+
+    "network": {
+        "format-wifi": "  NET  {signalStrength}%",
+        "format-ethernet": "  ETH  {ipaddr}",
+        "format-disconnected": "  NET  ---",
+        "tooltip-format": "{essid} via {gwaddr}\n{ipaddr}"
+    },
+
+    "custom/maid_quote": {
+        "exec": "~/.config/waybar/maid_quote.sh",
+        "return-type": "json",
+        "interval": 60,
+        "format": "{}"
+    }
+}

@@ -1,113 +1,121 @@
 /*******************************************************************************
- * ROFI Color Theme
- * User: Sheepla
- * Copyleft: Sheepla
+ * ROFI — "Maid's Devotion" Theme
+ * Palette: Uniform Black · Apron White · Rose Ribbon · Gold Trim
  *******************************************************************************/
 
 * {
-    highlight: bold italic;
-    scrollbar: true;
+    highlight:  bold italic;
+    scrollbar:  true;
 
-    palette-bg0:     #2E333E99;
-    palette-bg1:     #40455299;
-    palette-fg0:     #c6c8d1;
-    palette-highlight: #6552ab;
-    palette-active: #525AAB;
-    palette-warning: #B65FB8;
+    /* ── Maid's Devotion Palette ── */
+    bg0:        rgba(13,  11, 15, 0.94);
+    bg1:        rgba(37,  30, 46, 0.94);
+    fg0:        #F0E8F0;
+    rose:       #C8638A;
+    gold:       #D4AF37;
+    blush:      #E8A8C0;
+    muted:      #9E8EA0;
+    dark-text:  #0D0B0F;
 
-    /* Base colors */
-    background:                  @palette-bg0;
+    /* Rofi mappings */
+    background:                  @bg0;
     background-color:            @background;
-    foreground:                  @palette-fg0;
+    foreground:                  @fg0;
 
-    /* Normal colors */
     normal-background:           @background;
     normal-foreground:           @foreground;
-    alternate-normal-background: @palette-bg1;
+    alternate-normal-background: @bg1;
     alternate-normal-foreground: @foreground;
-    selected-normal-background:  @palette-highlight;
-    selected-normal-foreground:  @palette-fg0;
+    selected-normal-background:  @rose;
+    selected-normal-foreground:  #F0E8F0;
 
-    /* Active window colors */
-    active-background:           @palette-active;
-    active-foreground:           @normal-foreground;
-    alternate-active-background: @alternate-normal-background;
+    active-background:           @gold;
+    active-foreground:           @dark-text;
+    alternate-active-background: @bg1;
     alternate-active-foreground: @active-foreground;
     selected-active-background:  @active-background;
     selected-active-foreground:  @active-foreground;
 
-    /* Urgent colors */
     urgent-background:           @background;
-    urgent-foreground:           @palette-warning;
-    alternate-urgent-background: @alternate-normal-background;
+    urgent-foreground:           @blush;
+    alternate-urgent-background: @bg1;
     alternate-urgent-foreground: @urgent-foreground;
     selected-urgent-background:  @urgent-foreground;
-    selected-urgent-foreground:  @normal-background;
+    selected-urgent-foreground:  @dark-text;
 
-    /* Other colors */
-    border-color:                @palette-highlight;
-    separatorcolor:              @border-color;
-    scrollbar-handle:            @palette-highlight;
+    border-color:      @rose;
+    separatorcolor:    rgba(200, 99, 138, 0.35);
+    scrollbar-handle:  @gold;
 }
 
 #window {
-    background-color:             @background-color;
-    children:                     [mainbox];
+    background-color: @background-color;
+    border:           2px;
+    border-color:     @rose;
+    border-radius:    16px;
+    children:         [mainbox];
+    padding:          4px;
 }
 
 #mainbox {
     border:      0;
     orientation: vertical;
-    children:    [ entry, message, listview, mode-switcher ];
+    children:    [entry, message, listview, mode-switcher];
 }
 
 #entry {
-    expand:     false;
-    text-color: @normal-foreground;
-    /* Padding between 2 lines */
-    padding:      10px 0px 10px 10px;
-    border:       0 0 2px;
-    border-color: @palette-highlight;
-    margin:       10px;
+    expand:       false;
+    text-color:   @normal-foreground;
+    padding:      10px 0px 10px 14px;
+    border:       0 0 1px;
+    border-color: rgba(200, 99, 138, 0.4);
+    margin:       10px 10px 4px;
 }
 
-#sidebar {
-    expand: false;
+prompt {
+    padding:          6px 14px;
+    background-color: @rose;
+    text-color:       #F0E8F0;
+    border-radius:    8px 0 0 0;
 }
 
-/* Message box */
 #textbox {
     horizontal-align:  0;
-    background-color:  @palette-highlight;
-    padding:           10px 20px 10px 20px;
-    text-color:        @palette-fg0;
+    background-color:  rgba(200, 99, 138, 0.15);
+    padding:           8px 16px;
+    text-color:        @fg0;
+    border-radius:     6px;
+    margin:            0 10px;
 }
 
 #listview {
-    border:        0px 0px 0px ;
-    border-color:  @palette-highlight;
-    padding:       0px 0px 5px 0px;
-    scrollbar:     @scrollbar;
+    border:       0;
+    padding:      4px 0 6px;
+    scrollbar:    @scrollbar;
 }
-
 
 #mode-switcher {
-    border:       3px 0px 0px 0px;
-    border-color: @palette-highlight;
+    border:       1px 0px 0px;
+    border-color: rgba(200, 99, 138, 0.3);
+    padding:      4px 6px;
 }
 
-button { 
-    padding: 5px; 
+button {
+    padding:    5px;
+    text-color: @muted;
 }
 
 #button.selected {
     background-color: @selected-normal-background;
     text-color:       @selected-normal-foreground;
+    border-radius:    6px;
 }
 
 #element {
-    border:  0;
-    padding: 3px 10px 3px 10px ;
+    border:        0;
+    padding:       5px 12px;
+    border-radius: 8px;
+    margin:        1px 8px;
 }
 
 #element.normal.normal {
@@ -115,14 +123,14 @@ button {
     text-color:       @normal-foreground;
 }
 
-#element.normal.urgent {
-    background-color: @urgent-background;
-    text-color:       @urgent-foreground;
-}
-
 #element.normal.active {
     background-color: @active-background;
     text-color:       @active-foreground;
+}
+
+#element.normal.urgent {
+    background-color: @urgent-background;
+    text-color:       @urgent-foreground;
 }
 
 #element.selected.normal {
@@ -130,14 +138,14 @@ button {
     text-color:       @selected-normal-foreground;
 }
 
-#element.selected.urgent {
-    background-color: @selected-urgent-background;
-    text-color:       @selected-urgent-foreground;
-}
-
 #element.selected.active {
     background-color: @selected-active-background;
     text-color:       @selected-active-foreground;
+}
+
+#element.selected.urgent {
+    background-color: @selected-urgent-background;
+    text-color:       @selected-urgent-foreground;
 }
 
 #element.alternate.normal {
@@ -145,21 +153,25 @@ button {
     text-color:       @alternate-normal-foreground;
 }
 
+#element.alternate.active {
+    background-color: @alternate-active-background;
+    text-color:       @alternate-active-foreground;
+}
+
 #element.alternate.urgent {
     background-color: @alternate-urgent-background;
     text-color:       @alternate-urgent-foreground;
 }
 
-#element.alternate.active {
-    background-color: @alternate-active-background;
-    text-color:       @alternate-active-foreground;
+#element:selected {
+    border-left:       2px solid rgba(212, 175, 55, 0.6);
 }
 
 inputbar {
     spacing:    0;
     text-color: @normal-foreground;
     padding:    2px;
-    children:   [ textbox-prompt-sep, entry, case-indicator ];
+    children:   [textbox-prompt-sep, entry, case-indicator];
 }
 
 case-indicator,
@@ -169,23 +181,13 @@ button {
     text-color: @normal-foreground;
 }
 
-button.selected {
-    background-color: @selected-normal-background;
-    text-color:       @selected-normal-foreground;
-}
-
 textbox-prompt-sep {
     expand:     false;
-    str:        ":";
-    text-color: @normal-foreground;
-    margin:     0 0.3em 0 0;
-}
-
-prompt {
-   padding:6px 9px;
-   background-color: @palette-highlight;
+    str:        "✦";
+    text-color: @gold;
+    margin:     0 6px 0 0;
 }
 
 element-icon {
-    size: 18;
+    size: 20;
 }

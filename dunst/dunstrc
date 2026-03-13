@@ -1,0 +1,117 @@
+# ══════════════════════════════════════════════════════════════════
+#  ✦ DUNST — "Maid's Devotion" Theme ✦
+#
+#  Palette:
+#    #0D0B0F  Uniform Black   — background
+#    #C8638A  Rose Ribbon     — frame / accent
+#    #D4AF37  Gold Trim       — critical frame
+#    #F0E8F0  Apron White     — primary text
+#    #E8A8C0  Blush Pink      — low urgency text
+#    #9E8EA0  Muted Mauve     — secondary text
+# ══════════════════════════════════════════════════════════════════
+
+[global]
+    monitor      = 0
+    follow       = none
+
+    ### Geometry ###
+    width        = (240, 360)
+    height       = (0, 200)
+    origin       = top-right
+    # Push below waybar (8px top margin + 41px bar height + 8px gap = 57px)
+    offset       = (16, 57)
+    scale        = 0
+    notification_limit = 5
+    gap_size     = 8
+
+    ### Progress bar ###
+    progress_bar                = true
+    progress_bar_height         = 6
+    progress_bar_frame_width    = 0
+    progress_bar_min_width      = 120
+    progress_bar_max_width      = 320
+    progress_bar_corner_radius  = 3
+
+    ### Padding & frame ###
+    padding            = 12
+    horizontal_padding = 14
+    text_icon_padding  = 10
+    frame_width        = 1
+    frame_color        = "#C8638A"
+    separator_height   = 0
+    separator_color    = frame
+
+    ### Corners ###
+    corner_radius = 12
+    corners       = all
+
+    icon_corner_radius = 6
+    icon_corners       = all
+
+    ### Text ###
+    font        = DepartureMono Nerd Font 11
+    line_height = 2
+    markup      = full
+    format      = "<b>%s</b>\n%b"
+    alignment   = left
+    vertical_alignment = center
+    ellipsize   = middle
+    word_wrap   = yes
+
+    show_age_threshold    = 30
+    stack_duplicates      = true
+    hide_duplicate_count  = false
+    show_indicators       = yes
+    indicate_hidden       = yes
+
+    ### Icons ###
+    enable_recursive_icon_lookup = true
+    icon_theme    = Adwaita
+    icon_position = left
+    min_icon_size = 32
+    max_icon_size = 64
+
+    ### History ###
+    sticky_history = yes
+    history_length = 20
+
+    ### Misc ###
+    browser         = /usr/bin/xdg-open
+    always_run_script = true
+    title           = Dunst
+    class           = Dunst
+    force_xwayland  = false
+    ignore_dbusclose = false
+
+    ### Mouse ###
+    mouse_left_click   = close_current
+    mouse_middle_click = do_action, close_current
+    mouse_right_click  = close_all
+
+[experimental]
+    per_monitor_dpi    = false
+    pause_on_mouse_over = true
+
+# ── Low urgency — subtle, unobtrusive ─────────────────────────────
+[urgency_low]
+    background  = "#0D0B0F"
+    foreground  = "#9E8EA0"
+    frame_color = "#2A1E2E"
+    timeout     = 6
+    default_icon = dialog-information
+
+# ── Normal urgency — the maid announces herself ────────────────────
+[urgency_normal]
+    background  = "#0D0B0F"
+    foreground  = "#F0E8F0"
+    frame_color = "#C8638A"
+    timeout     = 8
+    default_icon = dialog-information
+
+# ── Critical urgency — urgent summons, gold trim ───────────────────
+[urgency_critical]
+    background  = "#0D0B0F"
+    foreground  = "#F0E8F0"
+    frame_color = "#D4AF37"
+    timeout     = 0
+    default_icon = dialog-warning

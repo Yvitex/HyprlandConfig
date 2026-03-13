@@ -1,0 +1,117 @@
+/* ══════════════════════════════════════════════════════════════════
+   ✦ SIDEBAR STYLESHEET — "Maid's Devotion" Theme ✦
+   The devoted attendant panel — always by your side.
+   ══════════════════════════════════════════════════════════════════ */
+
+* {
+    font-family: "DepartureMono Nerd Font", "Noto Sans", monospace;
+    font-size: 12px;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+    transition: all 0.2s ease;
+}
+
+window#waybar {
+    background: rgba(13, 11, 15, 0.90);
+    border-left: 1px solid rgba(200, 99, 138, 0.30);
+    border-radius: 16px 0 0 16px;
+    color: #F0E8F0;
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.6),
+                inset 1px 0 0 rgba(240, 232, 240, 0.03);
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+    padding: 6px 4px;
+}
+
+/* ── Header ── */
+#custom-maid_header {
+    color: #D4AF37;
+    font-size: 10px;
+    padding: 12px 8px 8px;
+    border-bottom: 1px solid rgba(200, 99, 138, 0.35);
+    margin: 0 8px 4px;
+}
+
+/* ── Clock — the hall's grand timepiece ── */
+#clock {
+    color: #F0E8F0;
+    font-size: 22px;
+    font-weight: bold;
+    padding: 10px 8px;
+    letter-spacing: 2px;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    margin: 0 8px 6px;
+}
+
+/* ── System stat cards ── */
+#cpu,
+#memory,
+#temperature,
+#pulseaudio,
+#network {
+    background: rgba(37, 30, 46, 0.55);
+    border-radius: 8px;
+    padding: 6px 10px;
+    margin: 3px 8px;
+    color: #F0E8F0;
+    font-size: 11px;
+    border-left: 2px solid transparent;
+}
+
+#cpu         { border-left-color: #C8638A; }
+#memory      { border-left-color: #D4AF37; }
+#temperature { border-left-color: #E8A8C0; }
+#pulseaudio  { border-left-color: #9E8EA0; }
+#network     { border-left-color: #7B5EA7; }
+
+#cpu:hover,
+#memory:hover,
+#temperature:hover,
+#pulseaudio:hover,
+#network:hover {
+    background: rgba(200, 99, 138, 0.12);
+    border-left-color: #D4AF37;
+}
+
+#temperature.critical {
+    color: #FF6B9D;
+    border-left-color: #FF6B9D;
+    animation: heat 0.8s infinite alternate;
+}
+
+@keyframes heat {
+    from { color: #FF6B9D; }
+    to   { color: #FFB347; }
+}
+
+#pulseaudio.muted {
+    color: #9E8EA0;
+}
+
+/* ── Maid quote footer ── */
+#custom-maid_quote {
+    color: #9E8EA0;
+    font-size: 10px;
+    font-style: italic;
+    padding: 10px 10px 12px;
+    border-top: 1px solid rgba(200, 99, 138, 0.28);
+    margin: 6px 8px 0;
+    letter-spacing: 0.3px;
+}
+
+/* ── Tooltip ── */
+tooltip {
+    background: rgba(13, 11, 15, 0.96);
+    border: 1px solid rgba(200, 99, 138, 0.5);
+    border-radius: 10px;
+    color: #F0E8F0;
+    padding: 8px 12px;
+}
+
+tooltip label {
+    color: #F0E8F0;
+}
